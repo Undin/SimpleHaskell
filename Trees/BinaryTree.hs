@@ -1,10 +1,11 @@
 module Trees.BinaryTree
 (	BinaryTree(EmptyTree),
 	treeInsert,
-	treeElem
+	treeElem,
+	treeErase
 ) where
 
-data BinaryTree a = EmptyTree | Node a (BinaryTree a) (BinaryTree a) deriving(Show)
+data BinaryTree a = EmptyTree | Node a (BinaryTree a) (BinaryTree a) deriving(Show, Eq)
 
 singletonTree x = Node x EmptyTree EmptyTree
 
@@ -19,3 +20,11 @@ treeElem x (Node a left right)
 	| x == a = True
 	| x < a = treeElem x left
 	| x > a = treeElem x right
+
+treeErase x EmptyTree = EmptyTree
+treeErase x (Node a left right)
+	| x == a = if left == EmptyTree then right else Node top (treeErase top left) right
+	| x < a = Node a (treeErase x left) right
+	| x > a = Node a left (treeErase x right)
+	where
+		Node top _ _ = left
