@@ -1,10 +1,18 @@
 module List
 (
 	List(..),
-	headList,
-	tailList,
-	lastList,
-	initList
+	listHead,
+	listTail,
+	listLast,
+	listInit,
+	listLength,
+	listFoldl,
+	listFoldl',
+	listFoldr,
+	listFoldr',
+	listMap,
+	listFilter,
+	listElem
 ) where
 
 infixr 5 :::
@@ -14,13 +22,31 @@ infixr 5 +++
 (+++) EmptyList x = x
 (+++) (x ::: xs) ys = x ::: (xs +++ ys)
 
-headList (x ::: xs) = x
+listHead (x ::: xs) = x
 
-tailList (x ::: xs) = xs
+listTail (x ::: xs) = xs
 
-lastList (x ::: EmptyList) = x
-lastList (x ::: xs) = lastList xs
+listLast (x ::: EmptyList) = x
+listLast (x ::: xs) = listLast xs
 
-initList (x ::: EmptyList) = EmptyList
-initList (x ::: xs) = x ::: initList xs
+listInit (x ::: EmptyList) = EmptyList
+listInit (x ::: xs) = x ::: listInit xs
 
+listLength EmptyList = 0
+listLength (x ::: xs) = 1 + listLength xs
+
+listFoldl _ acc EmptyList = acc
+listFoldl f acc (x ::: xs) = listFoldl f (f acc x) xs
+
+listFoldl' f (x ::: xs) = listFoldl f x xs
+
+listFoldr _ acc EmptyList = acc
+listFoldr f acc (x ::: xs) = f x (listFoldr f acc xs)
+
+listFoldr' f xs = listFoldr f (listLast xs) (listInit xs) 
+
+listMap f = listFoldr (\x acc -> f x ::: acc) EmptyList
+
+listFilter f = listFoldr (\x acc -> if f x then x ::: acc else acc) EmptyList
+
+listElem x = listFoldl (\acc y -> if y == x then True else acc) False
