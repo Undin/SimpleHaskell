@@ -23,8 +23,7 @@ treeElem x (Node a left right)
 
 treeErase x EmptyTree = EmptyTree
 treeErase x (Node a left right)
-	| x == a = if left == EmptyTree then right else Node top (treeErase top left) right
+	| x == a = if left == EmptyTree then right else let Node top _ _ = left in Node top (treeErase top left) right
 	| x < a = Node a (treeErase x left) right
 	| x > a = Node a left (treeErase x right)
-	where
-		Node top _ _ = left
+	
