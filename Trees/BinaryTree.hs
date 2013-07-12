@@ -6,7 +6,8 @@ module Trees.BinaryTree
 	treeMin,
 	treeMax,
 	treeLowerBound,
-	treeUpperBound
+	treeUpperBound,
+	treeSize
 ) where
 
 data BinaryTree a = EmptyTree | Node a (BinaryTree a) (BinaryTree a) deriving(Show, Eq)
@@ -48,3 +49,6 @@ treeUpperBound x (Node a left right)
 	| x == a = Just x
 	| x < a = let res = treeUpperBound x left in if res == Nothing then Just a else min (Just a) res
 	| x > a = treeUpperBound x right
+	
+treeSize EmptyTree = 0
+treeSize (Node _ left right) = 1 + treeSize left + treeSize right
