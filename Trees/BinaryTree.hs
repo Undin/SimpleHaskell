@@ -2,7 +2,11 @@ module Trees.BinaryTree
 (	BinaryTree(EmptyTree),
 	treeInsert,
 	treeElem,
-	treeErase
+	treeErase,
+	treeMin,
+	treeMax,
+	treeLowerBound,
+	treeUpperBound
 ) where
 
 data BinaryTree a = EmptyTree | Node a (BinaryTree a) (BinaryTree a) deriving(Show, Eq)
@@ -27,3 +31,20 @@ treeErase x (Node a left right)
 	| x < a = Node a (treeErase x left) right
 	| x > a = Node a left (treeErase x right)
 	
+treeMin (Node x EmptyTree _) = x
+treeMin (Node _ left _) = treeMin left
+
+treeMax (Node x _ EmptyTree) = x
+treeMax (Node _ _ right) = treeMax right
+
+treeLowerBound _ EmptyTree = Nothing
+treeLowerBound x (Node a left right)
+	| x == a = Just x
+	| x < a = treeLowerBound x left
+	| x > a = max (Just a) (treeLowerBound x right)
+
+treeUpperBound _ EmptyTree = Nothing	
+treeUpperBound x (Node a left right)
+	| x == a = Just x
+	| x < a = let res = treeUpperBound x left in if res == Nothing then Just a else min (Just a) res
+	| x > a = treeUpperBound x right
