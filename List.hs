@@ -22,18 +22,22 @@ infixr 5 +++
 (+++) EmptyList x = x
 (+++) (x ::: xs) ys = x ::: (xs +++ ys)
 
-listHead (x ::: xs) = x
+(!!!) (x ::: _) 0 = x
+(!!!) (_ ::: xs) n = xs !!! (n - 1)
 
-listTail (x ::: xs) = xs
+listNull xs = xs == EmptyList
+listHead (x ::: _) = x
+
+listTail (_ ::: xs) = xs
 
 listLast (x ::: EmptyList) = x
-listLast (x ::: xs) = listLast xs
+listLast (_ ::: xs) = listLast xs
 
-listInit (x ::: EmptyList) = EmptyList
+listInit (_ ::: EmptyList) = EmptyList
 listInit (x ::: xs) = x ::: listInit xs
 
 listLength EmptyList = 0
-listLength (x ::: xs) = 1 + listLength xs
+listLength (_ ::: xs) = 1 + listLength xs
 
 listFoldl _ acc EmptyList = acc
 listFoldl f acc (x ::: xs) = listFoldl f (f acc x) xs
