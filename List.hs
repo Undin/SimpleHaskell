@@ -12,7 +12,8 @@ module List
 	listFoldr',
 	listMap,
 	listFilter,
-	listElem
+	listElem,
+	listNull
 ) where
 
 infixr 5 :::
@@ -26,6 +27,7 @@ infixr 5 +++
 (!!!) (_ ::: xs) n = xs !!! (n - 1)
 
 listNull xs = xs == EmptyList
+
 listHead (x ::: _) = x
 
 listTail (_ ::: xs) = xs
