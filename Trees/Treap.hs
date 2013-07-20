@@ -5,7 +5,7 @@ module BinaryTrees.Treap
 	split
 ) where
 
-data Treap x y = EmptyTreap | Node x y (Treap x y) (Treap x y) deriving(Show)
+data Treap x = EmptyTreap | Node x Int (Treap x) (Treap x) deriving(Show)
 
 merge EmptyTreap second = second
 merge first EmptyTreap = first
