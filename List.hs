@@ -1,19 +1,19 @@
 module List
 (
-	List(..),
-	listHead,
-	listTail,
-	listLast,
-	listInit,
-	listLength,
-	listFoldl,
-	listFoldl',
-	listFoldr,
-	listFoldr',
-	listMap,
-	listFilter,
-	listElem,
-	listNull
+    List(..),
+    listHead,
+    listTail,
+    listLast,
+    listInit,
+    listLength,
+    listFoldl,
+    listFoldl',
+    listFoldr,
+    listFoldr',
+    listMap,
+    listFilter,
+    listElem,
+    listNull
 ) where
 
 infixr 5 :::
